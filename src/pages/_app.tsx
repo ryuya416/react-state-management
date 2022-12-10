@@ -1,31 +1,26 @@
-import type { AppProps } from "next/app";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
-import { Layout } from "src/components/Layout";
-import { Todo } from "src/types";
+import type { NextPage } from "next";
+import { ComponentProps } from "react";
+import { useTodosDispatch } from "src/state/todos";
 
-const TODOS: Todo[] = [
-  { id: 1, text: "foo", isDone: false },
-  { id: 2, text: "bar", isDone: true },
-];
+const Add: NextPage = () => {
+  const { addTodo } = useTodosDispatch();
 
-export const TodoContext = createContext<{
-  todos: Todo[];
-  setTodos: Dispatch<SetStateAction<Todo[]>>;
-}>({
-  todos: TODOS,
-  setTodos: () => {
-    throw new Error("setTodos is not implemented");
-  },
-});
-
-export default function MyApp({ Component, pageProps }: AppProps) {
-  const [todos, setTodos] = useState<Todo[]>(TODOS);
+  const handleSubmit: ComponentProps<"form">["onSubmit"] = (event) => {
+    event.preventDefault();
+    const text = event.currentTarget.text.value;
+    addTodo(text);
+    event.currentTarget.reset();
+  };
 
   return (
-    <TodoContext.Provider value={{ todos, setTodos }}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </TodoContext.Provider>
+    <div>
+      <h3>TODO追加</h3>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="text" autoComplete="off" required />
+        <button>追加</button>
+      </form>
+    </div>
   );
-}
+};
+
+export default Add;
