@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+<<<<<<< HEAD
 import { useRecoilState } from "recoil";
 import { todosState } from "src/state/todo";
 import { Todo } from "src/types";
@@ -16,6 +17,13 @@ const Home: NextPage = () => {
       });
     });
   };
+=======
+import { useTodos, useTodosDispatch } from "src/state/todos";
+
+const Home: NextPage = () => {
+  const todos = useTodos();
+  const { toggleIsDone } = useTodosDispatch();
+>>>>>>> 908401b327a80d465fa23144250fe8c218f83618
 
   return (
     <div>

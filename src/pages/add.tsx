@@ -1,10 +1,19 @@
 import type { NextPage } from "next";
+<<<<<<< HEAD
 import { ComponentProps } from "react";
 import { useSetRecoilState } from "recoil";
 import { todosState } from "src/state/todo";
 
 const Add: NextPage = () => {
   const setTodos = useSetRecoilState(todosState);
+=======
+import { ComponentProps, useContext } from "react";
+import { TodoContext } from "src/pages/_app";
+import { Todo } from "src/types";
+
+const Add: NextPage = () => {
+  const { setTodos } = useContext(TodoContext);
+>>>>>>> 908401b327a80d465fa23144250fe8c218f83618
 
   const handleSubmit: ComponentProps<"form">["onSubmit"] = (event) => {
     event.preventDefault();
